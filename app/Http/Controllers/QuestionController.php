@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateMultipleQuestionRequest;
+use App\Http\Requests\CreateQuantativeQuestionRequest;
+use App\Http\Requests\CreateQualitativeQuestionRequest;
 use App\Repositories\QuestionRepository;
 use App\Repositories\AnswerRepository;
 use App\Repositories\MultiChoiceRepository;
@@ -61,9 +63,21 @@ class QuestionController extends Controller
      *
      * @return Response
      */
-    public function storeQantative(CreateQjantativeQuestionRequest $request)
+    public function storeQuantative(CreateQuantativeQuestionRequest $request)
     {
+        $question = $this->questionRepo->create($request->only('description', 'raffle_id'));
 
+        return view('questions.create');
+    }
+
+    /**
+    * @test
+    **/
+    public function storeQualitative(CreateQualitativeQuestionRequest $request)
+    {
+        $question = $this->questionRepo->create($request->only('description', 'raffle_id'));
+
+        return view('questions.create');
     }
 
 }

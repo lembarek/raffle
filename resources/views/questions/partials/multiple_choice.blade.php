@@ -1,7 +1,7 @@
 <form action="{{ route('question.store.multiple') }}" method="POST">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-<input type="hidden" name="raffle_id" value="{{ $raffle = Cache::get('raffle_id') }}">
+<input type="hidden" name="raffle_id" value="{{ Cache::get('raffle_id') }}">
 
 <div class="formbg row question-container" id="multiple_choice">
     <h2>Multiple Choice</h2>

@@ -63,7 +63,7 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::post('/question/quantative', [
             'as' => 'question.store.quantative',
-            'uses' => 'QuestionController@storeQuanttative',
+            'uses' => 'QuestionController@storeQuantative',
             ]);
 
 

@@ -1,5 +1,6 @@
 <?php
 
+use Cache;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class QuestionControllersTest extends TestCase {
@@ -11,6 +12,9 @@ class QuestionControllersTest extends TestCase {
         parent::setUp();
         $user = createUser();
         login($user);
+
+        $this->raffle = createRaffle();
+        Cache::put('raffle_id', $this->raffle->id, 60);
     }
 
     /**
@@ -28,7 +32,7 @@ class QuestionControllersTest extends TestCase {
         $this->select('3', 'correct_answer');
         $this->press('next Question');
 
-        $this->seeInDatabase('questions', ['description' => 'question description']);
+        $this->seeInDatabase('questions', ['description' => 'question description', 'raffle_id' => $this->raffle->id]);
         $this->seeInDatabase('answers', ['answer' => 'answer 3']);
         $this->seeInDatabase('multi_choices', ['answer' => 'answer 1']);
         $this->seeInDatabase('multi_choices', ['answer' => 'answer 2']);
@@ -47,12 +51,21 @@ class QuestionControllersTest extends TestCase {
         $this->type('question description', 'description');
         $this->press('next Question');
 
-        $this->seeInDatabase('questions', ['description' => 'question description']);
-        $this->seeInDatabase('answers', ['answer' => 'answer 3']);
-        $this->seeInDatabase('multi_choices', ['answer' => 'answer 1']);
-        $this->seeInDatabase('multi_choices', ['answer' => 'answer 2']);
-        $this->seeInDatabase('multi_choices', ['answer' => 'answer 3']);
-        $this->seeInDatabase('multi_choices', ['answer' => 'answer 4']);
+        $this->seeInDatabase('questions', ['description' => 'question description', 'raffle_id' => $this->raffle->id]);
+    }
+
+    /**
+    * @test
+    **/
+    public function it_create_qualitative_question()
+    {
+        $question_type = "qualitative";
+        $this->visit(route('question.create', compact('question_type')));
+        $this->seePageIs(route('question.create', compact('question_type')));
+        $this->type('question description', 'description');
+        $this->press('next Question');
+
+        $this->seeInDatabase('questions', ['description' => 'question description', 'raffle_id' => $this->raffle->id]);
     }
 
 }
