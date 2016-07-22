@@ -3,12 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateMultipleQuestionRequest;
+use App\Repositories\QuestionRepository;
+use App\Repositories\AnswerRepository;
+use App\Repositories\MultiChoiceRepository;
 
 class QuestionController extends Controller
 {
 
-    public function __construct()
+    protected $questionRepo;
+
+    protected $answerRepo;
+
+    protected $multiChoiceRepo;
+
+    public function __construct(QuestionRepository $questionRepo, AnswerRepository $answerRepo, MultiChoiceRepository $multiChoiceRepo)
     {
+        $this->questionRepo = $questionRepo;
+        $this->answerRepo = $answerRepo;
+        $this->multiChoiceRepo = $multiChoiceRepo;
     }
 
     /**
@@ -28,8 +40,30 @@ class QuestionController extends Controller
      */
     public function storeMultiple(CreateMultipleQuestionRequest $request)
     {
-        $this->questionRepo->createMultipleQuestion($request->except('_token'));
-        return  back();
+        $multiple_choices = head($request->only('answers'));
+
+        $question = $this->questionRepo->create($request->only('description', 'raffle_id'));
+
+        $correctAnswer  = $multiple_choices[head($request->only('correct_answer'))];
+
+        $answer = $this->answerRepo->create(['answer' => $correctAnswer, 'question_id' => $question->id]);
+
+        array_map(function($choice)use($question){
+            $this->multiChoiceRepo->create(['question_id' => $question->id, 'answer' => $choice]);
+        }, $multiple_choices);
+
+
+        return  view('questions.create');
+    }
+
+    /**
+     * store a quantative question
+     *
+     * @return Response
+     */
+    public function storeQantative(CreateQjantativeQuestionRequest $request)
+    {
+
     }
 
 }

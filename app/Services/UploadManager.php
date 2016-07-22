@@ -6,7 +6,7 @@ use Dflydev\ApacheMimeTypes\PhpRepository;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
-class UploadsManager
+class UploadManager
 {
   protected $disk;
   protected $mimeDetect;

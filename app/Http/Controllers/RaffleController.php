@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Cache;
 use App\Http\Requests\RaffleCreateRequest;
 use App\Repositories\RaffleRepository;
-use App\Services\UploadsManager;
+use App\Services\UploadManager;
 
 class RaffleController extends Controller
 {
@@ -14,7 +15,7 @@ class RaffleController extends Controller
 
     protected $manager;
 
-    public function __construct(RaffleRepository $raffleRepo, UploadsManager $manager)
+    public function __construct(RaffleRepository $raffleRepo, UploadManager $manager)
     {
         $this->raffleRepo = $raffleRepo;
         $this->manager = $manager;
@@ -41,7 +42,9 @@ class RaffleController extends Controller
 
         $this->manager->uploadImage($request->file('image'));
 
-        return redirect(route('question.create'));
+        Cache::put('raffle_id', $raffle->id, 60);
+
+        return view('questions.create');
     }
 
 }

@@ -12,30 +12,29 @@
 <div class="form-group">
     <div class="paddingLeft question-type-checkbox" style="margin-left: 10px;">
 
-        <button
-           class="btn btn-primary question_button"
-           id="multiple_choice_button"
-           disabled
-           onclick="show_question('#multiple_choice')"
+        <a
+           class="btn btn-primary question_a"
+           href="{{ route('question.create') }}?question_type=multiple_choice"
+           id="multiple_choice_a"
         >
            Multiple Choice
-        </button>
+        </a>
 
-        <button
-            class="btn btn-primary question_button"
-            id="quantative_question_button"
-            onclick="show_question('#quantative_question')"
+        <a
+            class="btn btn-primary question_a"
+            href="{{ route('question.create') }}?question_type=quantative"
+            id="quantative_question_a"
             >
             Quantative Question
-        </button>
+        </a>
 
-        <button
-            class="btn btn-primary question_button"
-            id="qualitative_question_button"
-            onclick="show_question('#qualitative_question')"
+        <a
+            class="btn btn-primary question_a"
+           href="{{ route('question.create') }}?question_type=qualitative"
+            id="qualitative_question_a"
             >
             Qualitative Question
-        </button>
+        </a>
 
  </div>
 
