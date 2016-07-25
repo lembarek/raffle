@@ -15,4 +15,14 @@ class Question extends Model
     {
         return $this->type;
     }
+
+    /**
+     * get the correct answer
+     *
+     * @return string
+     */
+    public function correctAnswer()
+    {
+        return $this->hasOne(Answer::class);
+    }
 }

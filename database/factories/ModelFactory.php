@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use App\Models\Raffle;
 use App\Models\Question;
 
@@ -38,5 +39,22 @@ $factory->define(App\Models\MultiChoice::class, function ($faker) {
     ];
 });
 
+$factory->define(App\Models\Answer::class, function ($faker) {
+    $question = count(Question::all())? Question::all()->random() :createQuestion();
+    return [
+    'answer' => $faker->word(),
+    'question_id' => $question->id,
+    ];
+});
 
-
+$factory->define(App\Models\UserAnswer::class, function ($faker) {
+    $question = count(Question::all())? Question::all()->random() :createQuestion();
+    $raffle = count(Raffle::all())? Raffle::all()->random() :createRaffle();
+    $user = count(User::all())? User::all()->random() :createUser();
+    return [
+    'answer' => $faker->word(),
+    'question_id' => $question->id,
+    'raffle_id' => $raffle->id,
+    'user_id' => $user->id,
+    ];
+});

@@ -3,6 +3,8 @@
 use App\Models\User;
 use App\Models\Raffle;
 use App\Models\Question;
+use App\Models\Answer;
+use App\Models\UserAnswer;
 use App\Models\MultiChoice;
 
 function createUser($overs = [], $limit=1)
@@ -33,6 +35,26 @@ function createQuestion($overs = [], $limit=1)
 function makeQuestion($overs = [])
 {
     return factory(Question::class)->make($overs);
+}
+
+function createAnswer($overs = [], $limit=1)
+{
+    return factory(Answer::class, $limit)->create($overs);
+}
+
+function makeAnswer($overs = [])
+{
+    return factory(Answer::class)->make($overs);
+}
+
+function createUserAnswer($overs = [], $limit=1)
+{
+    return factory(UserAnswer::class, $limit)->create($overs);
+}
+
+function makeUserAnswer($overs = [])
+{
+    return factory(UserAnswer::class)->make($overs);
 }
 
 function createMultiChoice($overs = [], $limit=1)

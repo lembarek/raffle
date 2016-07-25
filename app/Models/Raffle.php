@@ -54,6 +54,16 @@ class Raffle extends Model
      */
     public function score()
     {
-        return 0;
+        $s=0;
+        $user_answers = UserAnswer
+            ::where('raffle_id', $this->id)
+            ->where('user_id', auth()->user()->id)
+            ->get();
+        foreach($user_answers as $user_answer){
+            $correct_answer = Question::find($user_answer->question_id)->correctAnswer->answer;
+            if($correct_answer ==  $user_answer->answer)
+                $s+=1;
+        }
+        return ($s*100)/count($user_answers);
     }
 }

@@ -49,4 +49,38 @@ class ParticipeControllerTest extends \TestCase {
             'answer' => $multiChoices[0]->answer,
         ]);
     }
+
+    /**
+    * @test
+    */
+    public function it_show_the_score()
+    {
+        $faker = \Faker\Factory::create();
+        $raffle = createRaffle();
+        $questions = createQuestion(['type' => 'multiple'], 10);
+        $i=0;
+        foreach($questions as $question){
+            $answer = $faker->word;
+            createAnswer(['question_id' => $question->id, 'answer' => $answer]);
+            createMultiChoice(['question_id' => $question->id, 'answer' => $answer]);
+            createMultiChoice(['question_id' => $question->id], 3);
+            if(($i++)%2 ==0)
+                createUserAnswer([
+                    'raffle_id' => $raffle->id,
+                    'question_id' => $question->id,
+                    'user_id' => $this->user->id,
+                    'answer' => $answer
+                ]);
+            else
+                createUserAnswer([
+                    'raffle_id' => $raffle->id,
+                    'question_id' => $question->id,
+                    'user_id' => $this->user->id,
+                ]);
+
+        }
+
+        $this->assertEquals(50, $raffle->score());
+   }
+
 }
