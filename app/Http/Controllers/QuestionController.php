@@ -44,7 +44,7 @@ class QuestionController extends Controller
     {
         $multiple_choices = head($request->only('answers'));
 
-        $question = $this->questionRepo->create($request->only('description', 'raffle_id'));
+        $question = $this->questionRepo->create(array_merge($request->only('description', 'raffle_id'), ['type' => 'multiple']));
 
         $correctAnswer  = $multiple_choices[head($request->only('correct_answer'))];
 
@@ -65,7 +65,9 @@ class QuestionController extends Controller
      */
     public function storeQuantative(CreateQuantativeQuestionRequest $request)
     {
-        $question = $this->questionRepo->create($request->only('description', 'raffle_id'));
+        $question = $this->questionRepo->create(
+            array_merge($request->only('description', 'raffle_id'), ['type' => 'quantative'])
+        );
 
         return view('questions.create');
     }
@@ -75,7 +77,9 @@ class QuestionController extends Controller
     **/
     public function storeQualitative(CreateQualitativeQuestionRequest $request)
     {
-        $question = $this->questionRepo->create($request->only('description', 'raffle_id'));
+        $question = $this->questionRepo->create(
+            array_merge($request->only('description', 'raffle_id'),['type' => 'qualitative'])
+        );
 
         return view('questions.create');
     }

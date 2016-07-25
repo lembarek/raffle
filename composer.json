@@ -59,7 +59,15 @@
             "php artisan route:clear",
             "php artisan view:clear",
             "composer dump-autoload"
+        ],
+        "migrate:refresh":[
+            "php artisan migrate:rollback",
+            "php artisan migrate",
+            "mysqldump raffle > /opt/lampp/htdocs/raffle/raffle.sql",
+            "mysql raffle_phpunit < /opt/lampp/htdocs/raffle/raffle.sql",
+            "php artisan db:seed"
         ]
+
     },
     "config": {
         "preferred-install": "dist"

@@ -32,7 +32,7 @@ class QuestionControllersTest extends TestCase {
         $this->select('3', 'correct_answer');
         $this->press('next Question');
 
-        $this->seeInDatabase('questions', ['description' => 'question description', 'raffle_id' => $this->raffle->id]);
+        $this->seeInDatabase('questions', ['description' => 'question description', 'raffle_id' => $this->raffle->id, 'type' => 'multiple']);
         $this->seeInDatabase('answers', ['answer' => 'answer 3']);
         $this->seeInDatabase('multi_choices', ['answer' => 'answer 1']);
         $this->seeInDatabase('multi_choices', ['answer' => 'answer 2']);
@@ -51,7 +51,11 @@ class QuestionControllersTest extends TestCase {
         $this->type('question description', 'description');
         $this->press('next Question');
 
-        $this->seeInDatabase('questions', ['description' => 'question description', 'raffle_id' => $this->raffle->id]);
+        $this->seeInDatabase('questions', [
+            'description' => 'question description',
+            'raffle_id' => $this->raffle->id,
+            'type' => 'quantative',
+        ]);
     }
 
     /**
@@ -65,7 +69,11 @@ class QuestionControllersTest extends TestCase {
         $this->type('question description', 'description');
         $this->press('next Question');
 
-        $this->seeInDatabase('questions', ['description' => 'question description', 'raffle_id' => $this->raffle->id]);
+        $this->seeInDatabase('questions', [
+            'description' => 'question description',
+            'raffle_id' => $this->raffle->id,
+            'type' => 'qualitative',
+        ]);
     }
 
 }

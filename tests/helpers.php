@@ -2,6 +2,8 @@
 
 use App\Models\User;
 use App\Models\Raffle;
+use App\Models\Question;
+use App\Models\MultiChoice;
 
 function createUser($overs = [], $limit=1)
 {
@@ -21,6 +23,26 @@ function createRaffle($overs = [], $limit=1)
 function makeRaffle($overs = [])
 {
     return factory(Raffle::class)->make($overs);
+}
+
+function createQuestion($overs = [], $limit=1)
+{
+    return factory(Question::class, $limit)->create($overs);
+}
+
+function makeQuestion($overs = [])
+{
+    return factory(Question::class)->make($overs);
+}
+
+function createMultiChoice($overs = [], $limit=1)
+{
+    return factory(MultiChoice::class, $limit)->create($overs);
+}
+
+function makeMultiChoice($overs = [])
+{
+    return factory(MultiChoice::class)->make($overs);
 }
 
 function login($user)

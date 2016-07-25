@@ -19,6 +19,7 @@ class CreateRafflesTable extends Migration
             $table->text('rules');
             $table->text('prize');
             $table->date('deadline');
+            $table->string('img');
             $table->timestamps();
         });
     }

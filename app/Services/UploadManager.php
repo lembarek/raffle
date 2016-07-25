@@ -215,16 +215,7 @@ class UploadManager
 
         $result = $this->saveFile($path, $content);
 
-        if ($result === true) {
-            return redirect()
-                ->back()
-                ->withStatus("File '$fileName' uploaded.");
-        }
-
-        $error = $result ? : "An error occurred uploading file.";
-        return redirect()
-            ->back()
-            ->withErrors([$error]);
+        return $result;
     }
 
 }

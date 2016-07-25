@@ -4,7 +4,15 @@ namespace App\Models;
 
 class Question extends Model
 {
+    protected $fillable = ['description', 'raffle_id', 'type'];
 
-    protected $fillable = ['description', 'raffle_id'];
-
+    /**
+    * return the layout name for the question
+    *
+    * @return string
+    */
+    public function layout()
+    {
+        return $this->type;
+    }
 }

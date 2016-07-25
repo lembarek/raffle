@@ -22,6 +22,8 @@ class CreateQuestionsTable extends Migration
                   ->references('id')->on('raffles')
                   ->onDelete('cascade');
 
+            $table->enum('type', ['multiple', 'qualitative', 'quantative']);
+
             $table->timestamps();
         });
     }

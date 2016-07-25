@@ -34,6 +34,12 @@ Route::group(['middleware' => ['web']], function () {
             'uses' => 'AuthController@logout',
             ]);
 
+
+        Route::get('/raffle', [
+            'as' => 'raffle.index',
+            'uses' => 'RaffleController@index',
+            ]);
+
         Route::get('/raffle/create', [
             'as' => 'raffle.create',
             'uses' => 'RaffleController@create',
@@ -45,6 +51,20 @@ Route::group(['middleware' => ['web']], function () {
             'uses' => 'RaffleController@store',
             ]);
 
+        Route::get('/participe/{raffle_id}', [
+            'as' => 'participe.index',
+            'uses' => 'ParticipeController@index',
+        ]);
+
+        Route::get('/participe/{raffle_id}/show', [
+            'as' => 'participe.show',
+            'uses' => 'ParticipeController@show',
+            ]);
+
+        Route::post('/participe/{raffle_id}/{question_id}', [
+            'as' => 'participe.store',
+            'uses' => 'ParticipeController@store',
+            ]);
 
         Route::get('/question/create', [
             'as' => 'question.create',
@@ -65,7 +85,6 @@ Route::group(['middleware' => ['web']], function () {
             'as' => 'question.store.quantative',
             'uses' => 'QuestionController@storeQuantative',
             ]);
-
 
     });
 

@@ -9,8 +9,6 @@ use App\Services\UploadManager;
 
 class RaffleController extends Controller
 {
-
-
     protected $raffleRepo;
 
     protected $manager;
@@ -19,6 +17,17 @@ class RaffleController extends Controller
     {
         $this->raffleRepo = $raffleRepo;
         $this->manager = $manager;
+    }
+
+    /**
+     * show raffles
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $raffles = $this->raffleRepo->all();
+        return view('raffle.index', compact('raffles'));
     }
 
     /**
@@ -38,13 +47,16 @@ class RaffleController extends Controller
      */
     public function store(RaffleCreateRequest $request)
     {
-        $raffle = $this->raffleRepo->create($request->except('_token'));
+        $image = $request->file('image');
 
-        $this->manager->uploadImage($request->file('image'));
+        $raffle = $this->raffleRepo->create(array_merge($request->except('_token'), ['img' => $image->getClientOriginalName()]));
+
+        $this->manager->uploadImage($image);
 
         Cache::put('raffle_id', $raffle->id, 60);
 
         return view('questions.create');
     }
+
 
 }
