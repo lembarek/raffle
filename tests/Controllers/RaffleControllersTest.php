@@ -64,7 +64,7 @@ class RaffleControllersTest extends TestCase {
     public function it_show_the_ongoign_raffles()
     {
         $raffles = createFullRaffles($this->user->id, 2);
-        $this->visit(route('raffle.ongoind'));
+        $this->visit(route('raffle.ongoing'));
         $this->seePageIs(route('raffle.ongoing'));
     }
 
