@@ -16,16 +16,15 @@ class Raffle extends Model
      */
     public function nextQuestion()
     {
-        $questions = Question::where('raffle_id', $this->id)->get();
-        foreach ($questions as $question) {
-            if(! UserAnswer
+        $question_ids = UserAnswer
                 ::where('user_id', auth()->user()->id)
-                ->where('question_id', $question->id)
                 ->where('raffle_id', $this->id)
-                ->exists())
-            return $question;
-        }
-        return null;
+                ->lists('question_id');
+
+        return Question
+            ::where('raffle_id', $this->id)
+            ->whereNotIn('id', $question_ids)
+            ->first();
     }
 
     /**
@@ -35,16 +34,45 @@ class Raffle extends Model
      */
     public function hasNextQuestion()
     {
-        $questions = Question::where('raffle_id', $this->id)->get();
-        foreach ($questions as $question) {
-            if(! UserAnswer
+        $question_ids = Question::where('raffle_id', $this->id)->lists('id');
+        $user_answers = UserAnswer
                 ::where('user_id', auth()->user()->id)
-                ->where('question_id', $question->id)
                 ->where('raffle_id', $this->id)
-                ->exists())
-            return true;
-        }
-        return false;
+                ->whereIn('question_id', $question_ids)
+                ->get();
+        return count($question_ids) !== count($user_answers);
+    }
+
+    /**
+     * check if the user complete this raffle
+     *
+     * @return boolean
+     */
+    public function isCompleted()
+    {
+        $question_ids = Question::where('raffle_id', $this->id)->lists('id');
+        $user_answers = UserAnswer
+                ::where('user_id', auth()->user()->id)
+                ->where('raffle_id', $this->id)
+                ->whereIn('question_id', $question_ids)
+                ->get();
+        return count($question_ids) === count($user_answers);
+    }
+
+    /**
+     * check if the user start this raffle but not completed it. (ongoind)
+     *
+     * @return boolean
+     */
+    public function isOngoing()
+    {
+        $question_ids = Question::where('raffle_id', $this->id)->lists('id');
+        $user_start_raffle = UserAnswer
+                ::where('user_id', auth()->user()->id)
+                ->where('raffle_id', $this->id)
+                ->whereIn('question_id', $question_ids)
+                ->exists();
+        return $user_start_raffle && ! $this->isCompleted();
     }
 
     /**

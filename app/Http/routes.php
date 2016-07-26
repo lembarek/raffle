@@ -40,6 +40,17 @@ Route::group(['middleware' => ['web']], function () {
             'uses' => 'RaffleController@index',
             ]);
 
+
+        Route::get('/raffle/completed', [
+            'as' => 'raffle.completed',
+            'uses' => 'RaffleController@completed',
+            ]);
+
+        Route::get('/raffle/ongoing', [
+            'as' => 'raffle.ongoing',
+            'uses' => 'RaffleController@ongoing',
+            ]);
+
         Route::get('/raffle/create', [
             'as' => 'raffle.create',
             'uses' => 'RaffleController@create',

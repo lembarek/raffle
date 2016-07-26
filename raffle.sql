@@ -62,7 +62,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES ('2014_10_12_000000_create_users_table',1),('2016_05_24_081834_create_raffles_table',1),('2016_05_24_081845_create_questions_table',1),('2016_05_26_055218_create_answers_table',1),('2016_06_22_022924_create_participates_table',1),('2016_06_22_034246_create_user_answers_table',1),('2016_06_22_080037_create_user_raffle_entry_table',1),('2016_07_17_153702_create_multi_choices_table',1);
+INSERT INTO `migrations` VALUES ('2014_10_12_000000_create_users_table',1),('2016_05_24_081834_create_raffles_table',1),('2016_05_24_081845_create_questions_table',1),('2016_05_26_055218_create_answers_table',1),('2016_06_22_022924_create_participates_table',1),('2016_06_22_034246_create_user_answers_table',1),('2016_07_17_153702_create_multi_choices_table',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,37 +218,6 @@ LOCK TABLES `user_answers` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `user_raffle_entry`
---
-
-DROP TABLE IF EXISTS `user_raffle_entry`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_raffle_entry` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `raffle_id` int(10) unsigned NOT NULL,
-  `user_id` int(10) unsigned NOT NULL,
-  `entry` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_raffle_entry_raffle_id_foreign` (`raffle_id`),
-  KEY `user_raffle_entry_user_id_foreign` (`user_id`),
-  CONSTRAINT `user_raffle_entry_raffle_id_foreign` FOREIGN KEY (`raffle_id`) REFERENCES `raffles` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `user_raffle_entry_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_raffle_entry`
---
-
-LOCK TABLES `user_raffle_entry` WRITE;
-/*!40000 ALTER TABLE `user_raffle_entry` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_raffle_entry` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `users`
 --
 
@@ -286,4 +255,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-25  5:51:37
+-- Dump completed on 2016-07-26 17:00:34

@@ -9,7 +9,6 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ $raffle->title }}</div>
                     <div class="panel-body">
-                        @include('partials.errors')
                         <form class="form-horizontal" role="form" method="POST"
                             action="{{ route('participe.store', ['raffle_id' => $raffle->id, 'question_id' => $question->id]) }}">
 

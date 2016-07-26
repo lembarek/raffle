@@ -58,5 +58,27 @@ class RaffleController extends Controller
         return view('questions.create');
     }
 
+    /**
+     * show the complete raffles
+     *
+     * @return Response
+     */
+    public function completed()
+    {
+        $raffles = auth()->user()->completedRaffles();
+        return view('raffle.completed', compact('raffles'));
+    }
+
+    /**
+     * show the ongoing raffles
+     *
+     * @return Response
+     */
+    public function ongoing()
+    {
+        $raffles = auth()->user()->ongoingRaffles();
+        return view('raffle.ongoing', compact('raffles'));
+    }
+
 
 }

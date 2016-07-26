@@ -47,4 +47,25 @@ class RaffleControllersTest extends TestCase {
 
         $this->assertTrue(file_exists(public_path('uploads/images/a.jpg')));
     }
+
+    /**
+    * @test
+    */
+    public function it_show_the_completed_raffles()
+    {
+        $raffles = createFullRaffles($this->user->id, 2);
+        $this->visit(route('raffle.completed'));
+        $this->seePageIs(route('raffle.completed'));
+    }
+
+    /**
+    * @test
+    **/
+    public function it_show_the_ongoign_raffles()
+    {
+        $raffles = createFullRaffles($this->user->id, 2);
+        $this->visit(route('raffle.ongoind'));
+        $this->seePageIs(route('raffle.ongoing'));
+    }
+
 }

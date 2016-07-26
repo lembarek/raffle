@@ -30,7 +30,7 @@ class RafflesTableSeeder extends Seeder
          ];
 
          foreach($raffles as $raffle){
-             $r = Raffle::create([
+             $r = createRaffle([
                  'title' => $raffle[0],
                  'mechanics' => $raffle[1],
                  'rules' => $raffle[2],
@@ -39,11 +39,12 @@ class RafflesTableSeeder extends Seeder
                  'img' => $raffle[5],
              ]);
              foreach($questions as $question){
-                 $q = Question::create(['raffle_id' => $r->id, 'description' => $question[0], 'type' => $question[1]]);
+                 $q = createQuestion(['raffle_id' => $r->id, 'description' => $question[0], 'type' => $question[1]]);
                  if($question[1] == 'multiple'){
-                    for($i=0;$i<4;$i++){
-                        MultiChoice::create(['question_id' => $q->id, 'answer' => $faker->word]);
-                    }
+                     $correct_answer = $faker->word;
+                     createAnswer(['question_id' => $q->id, 'answer' => $correct_answer]);
+                     createMultiChoice(['question_id' => $q->id, 'answer' => $correct_answer]);
+                     createMultiChoice(['question_id' => $q->id, 'answer' => $faker->word], 3);
                  }
              }
          }

@@ -24,4 +24,31 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * return all completed raffles
+     *
+     * @return Raffle
+     */
+    public function completedRaffles()
+    {
+        $raffles =  Raffle::get()->filter(function($raffle){
+            return $raffle->isCompleted();
+        });
+        return $raffles;
+    }
+
+     /**
+     * return all completed raffles
+     *
+     * @return Raffle
+     */
+    public function ongoingRaffles()
+    {
+        $raffles =  Raffle::get()->filter(function($raffle){
+            return $raffle->isOngoing();
+        });
+        return $raffles;
+    }
+
 }

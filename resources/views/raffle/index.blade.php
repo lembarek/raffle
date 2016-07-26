@@ -11,7 +11,14 @@
       <div class="caption">
           <h3>{{ $raffle->title}}</h3>
           <p>{{ $raffle->rules }}</p>
-          <p><a href="{{ route('participe.index', ['raffle_id' => $raffle->id]) }}" class="btn btn-primary" role="button">participe</a> </p>
+          @if($raffle->isCompleted())
+
+          <p class="btn btn-primary" role="button">you finished this raffle</p>
+          @elseif($raffle->isOngoing())
+    <p><a href="{{ route('participe.show', ['raffle_id' => $raffle->id]) }}" class="btn btn-primary" role="button">complete</a> </p>
+          @else
+   <p><a href="{{ route('participe.index', ['raffle_id' => $raffle->id]) }}" class="btn btn-primary" role="button">participe</a> </p>
+          @endif
       </div>
     </div>
   </div>

@@ -25,14 +25,14 @@ var site_js_files = [
     'bower_components/jquery-ui/ui/jquery-1-7.js',
     'bower_components/jquery-ui/ui/widgets/datepicker.js',
     'bower_components/bootstrap/dist/js/bootstrap.min.js',
-    'resources/assets/js/site/app.js',
+    'resources/assets/js/site/*.js',
 ];
 
 var acp_js_files = [
     'bower_components/jquery/dist/jquery.js',
     'bower_components/vue/dist/vue.js',
     'bower_components/vue-resource/dist/vue-resource.js',
-    'resources/assets/js/acp/*',
+    'resources/assets/js/acp/*.js',
 ];
 
 var site_css_files = [

@@ -58,3 +58,14 @@ $factory->define(App\Models\UserAnswer::class, function ($faker) {
     'user_id' => $user->id,
     ];
 });
+
+$factory->define(App\Models\UserRaffleEntry::class, function ($faker) {
+    $raffle = count(Raffle::all())? Raffle::all()->random() :createRaffle();
+    $user = count(User::all())? User::all()->random() :createUser();
+    return [
+    'complete' => $faker->boolean,
+    'ongoing' => $faker->boolean,
+    'raffle_id' => $raffle->id,
+    'user_id' => $user->id,
+    ];
+});

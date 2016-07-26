@@ -11,10 +11,18 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            <li class="{{ Request::segment(1) == '' ? 'active' : '' }}"><a href="/">Raffle Events</a></li>
-            <li class="{{ Request::segment(1) == 'make' ? 'active' : '' }}"><a href="/make">Make Raffle Event</a></li>
-            <!--<li class="{{ Request::segment(1) == 'ongoing' ? 'active' : '' }}"><a href="/ongoing">My Ongoing Raffles</a></li>-->
-            <li class="{{ Request::segment(1) == 'entries' ? 'active' : '' }}"><a href="/entries">Raffle Entries</a></li>
+            <li>
+                <a href="{{ route('raffle.index') }}">Raffle Events</a>
+            </li>
+            <li>
+                <a href="{{ route('raffle.create') }}">Make Raffle Event</a>
+            </li>
+            <li>
+                <a href="{{ route('raffle.ongoing') }}">My Ongoing Raffles</a>
+            </li>
+            <li>
+                <a href="{{ route('raffle.completed') }}">My Completed Raffles</a>
+            </li>
         </ul>
         <div class="navbar-right">
             <ul class="nav navbar-nav">

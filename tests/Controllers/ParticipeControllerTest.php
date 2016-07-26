@@ -37,7 +37,7 @@ class ParticipeControllerTest extends \TestCase {
         $firstQuestion = $questions[0];
         $multiChoices = createMultiChoice(['question_id' => $firstQuestion->id], 4);
 
-        $this->visit(route('participe.show', ['raffle_id' => $raffle->id, 'questiion_id' => $firstQuestion->id]));
+        $this->visit(route('participe.show', ['raffle_id' => $raffle->id]));
         $this->select($multiChoices[0]->answer, 'answer');
         $this->see($firstQuestion->description);
         $this->press('Next Question');
