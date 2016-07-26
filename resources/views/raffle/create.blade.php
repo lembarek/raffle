@@ -3,10 +3,12 @@
 @section('content')
 <form method="post" action="{{ route('raffle.create') }}" enctype="multipart/form-data">
    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+   @include('partials.errors')
+   @include('partials.status')
+
    <div class="formbg row">
       <div class="form-group" role="form">
 
-         @include('partials.status')
 
         <div class= "form-group">
             <label class="control-label col-md-1 col-md-offset-7 labelPadding" for="title">Raffle Title</label>

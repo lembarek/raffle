@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class RaffleCreateRequest extends Request
+class CreateRaffleRequest extends Request
 {
 
     /**
@@ -28,7 +28,7 @@ class RaffleCreateRequest extends Request
             "rules" => "required",
             'prize' => 'required',
             'deadline' => 'required|date',
-            'image' => 'required',
+            'image' => 'required|image|max:10000',
         ];
     }
 

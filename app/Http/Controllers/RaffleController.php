@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Cache;
-use App\Http\Requests\RaffleCreateRequest;
+use App\Http\Requests\CreateRaffleRequest;
 use App\Repositories\RaffleRepository;
 use App\Services\UploadManager;
 
@@ -45,7 +45,7 @@ class RaffleController extends Controller
      *
      * @return Response
      */
-    public function store(RaffleCreateRequest $request)
+    public function store(CreateRaffleRequest $request)
     {
         $image = $request->file('image');
 
