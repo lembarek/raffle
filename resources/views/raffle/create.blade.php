@@ -80,6 +80,4 @@ $(document).ready(function()
 
 </script>
 
-<script type="text/javascript" src="/assets/raffle/js/question.js"></script>
-
 @stop
